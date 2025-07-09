@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINAL SCORES L1</title>
+  <style>
+        body {
+            font-family: Georgia, sans-serif;
+            margin: 30px;
+	align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input[type="text"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #98FF98;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EXAM SCORES & MISSED ACTIVITIES</h1>
+<H5>SECTION L1</H5>
+        <form>
+
+            <label for="studentID">Enter Student ID (XX-XXXX-XXX):</label>
+            <input type="text" id="studentID" name="studentID" placeholder="XX-XXXX-XXX" required>
+            <button type="button" onclick="displayResults()">Get Results</button>
+        </form>
+
+        <div class="result">
+            <h2>Results</h2>
+            <p><strong>Midterm Score (100):</strong> <span id="testScore">--</span></p>
+ 	    <p><strong>Final Score (100):</strong> <span id="testScore2">--</span></p>
+	    <p><strong>Temporary Final Grade (5):</strong> <span id="testScore3">--</span></p>
+            <p><strong>Missed Quizzes:</strong> <span id="missedQuizzes">--</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Embedded data (replace with your actual data)
+        const studentData = {
+'23-2579-307':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'24-6884-535':{testScore: 94,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-5017-427':{testScore: 76,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Present Economies, Gradient Cashflow'},
+'23-3399-776':{testScore: 94,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-2091-574':{testScore: 50,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Gradient Cashflow'},
+'23-0668-470':{testScore: 84,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Payback Period and BCA'},
+'23-0477-379':{testScore: 74,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'int rates single'},
+'23-2985-270':{testScore: 94,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'22-4389-331':{testScore: 74,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Basic Economy Studies'},
+'23-0299-400':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'21-2381-349':{testScore: 84,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'int rates single'},
+'23-4978-433':{testScore: 76,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'IRR and ERR'},
+'21-5006-921':{testScore: 94,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Single Cashflows, Annuity, Shifted, int rates annuity'},
+'23-3139-278':{testScore: 88,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'21-0589-617':{testScore: 0,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Single Cashflows, Annuity, Gradient Cashflow, int rates single, int rates annuity, Basic Economy Studies, IRR and ERR, Payback Period and BCA'},
+'23-1541-463':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Basic Economy Studies, IRR and ERR'},
+'17-1659-429':{testScore: 0,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Present Economies, Single Cashflows, Annuity, Shifted, Gradient Cashflow, int rates single, int rates annuity, Basic Economy Studies, IRR and ERR, Payback Period and BCA'},
+'23-5293-970':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'IRR and ERR'},
+'21-1362-926':{testScore: 90,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-6900-685':{testScore: 88,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-1540-196':{testScore: 84,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-1709-461':{testScore: 86,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-6434-768':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-2577-389':{testScore: 92,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Single Cashflows, int rates annuity, Basic Economy Studies, IRR and ERR, Payback Period and BCA'},
+'23-1392-625':{testScore: 92,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-5592-205':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Present Economies, Single Cashflows'},
+'23-3274-629':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'21-2546-419':{testScore: 64,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Shifted, int rates annuity, Basic Economy Studies, IRR and ERR'},
+'23-0567-585':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-4390-742':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-4417-143':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-5847-405':{testScore: 70,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'18-3374-298':{testScore: 80,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Annuity, Gradient Cashflow, Basic Economy Studies'},
+'23-3520-670':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-0301-688':{testScore: 68,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Gradient Cashflow, int rates annuity'},
+'23-6261-931':{testScore: 92,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-3512-217':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'22-3293-391':{testScore: 62,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Present Economies, Basic Economy Studies'},
+'23-0812-764':{testScore: 78,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'14-1251-976':{testScore: 44,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: 'Annuity, Shifted, Basic Economy Studies, Payback Period and BCA'},
+'23-2052-351':{testScore: 100,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-1758-951':{testScore: 84,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'22-1678-222':{testScore: 76,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+'23-6326-253':{testScore: 70,testScore2: 'TBA',testScore3: 'TBA',missedQuizzes: ''},
+
+
+
+        };
+
+        function displayResults() {
+            const studentID = document.getElementById('studentID').value;
+
+            // Check if the student ID exists in the data
+            if (studentData[studentID]) {
+                document.getElementById('testScore').textContent = studentData[studentID].testScore;
+		document.getElementById('testScore2').textContent = studentData[studentID].testScore2;
+		document.getElementById('testScore3').textContent = studentData[studentID].testScore3;
+                document.getElementById('missedQuizzes').textContent = studentData[studentID].missedQuizzes;
+            } else {
+                document.getElementById('testScore').textContent = 'N/A';
+		document.getElementById('testScore2').textContent = 'N/A';
+		document.getElementById('testScore3').textContent = 'N/A';
+                document.getElementById('missedQuizzes').textContent = 'N/A';
+                alert('Student ID not found!');
+            }
+        }
+    </script>
+</body>
+</html>
